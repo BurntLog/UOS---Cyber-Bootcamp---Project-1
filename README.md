@@ -5,7 +5,7 @@ Automated ELK Stack Deployment
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram](https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/blob/main/diagrams/Network_Diagram.png)
+![Network Diagram](https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/blob/main/Diagrams/Network_Diagram.png.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the YML file may be used to install only certain pieces of it, such as Filebeat.
 
@@ -98,7 +98,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![Output](https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/blob/main/images/docker_ps_output.png)
+![Output](https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/blob/main/Images/docker_ps_output.png.PNG)
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
