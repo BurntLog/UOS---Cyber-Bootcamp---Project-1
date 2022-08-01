@@ -5,18 +5,18 @@ Automated ELK Stack Deployment
 
 The files in this repository were used to configure the network depicted below.
 
-![TODO: Update the path with the name of your diagram](Images/diagram_filename.png)
+!(https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/tree/main/Diagrams/Network Diagram.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the YML file may be used to install only certain pieces of it, such as Filebeat.
 
-  - [Ansible Hosts](ansible/hosts.yml)
-  - [Metricbeat Playbook](ansible/roles/metricbeat-playbook.yml)
-  - [Filebeat Playbook](ansible/roles/filebeat-playbook.yml)
-  - [Ansible Configuration](ansible/ansible.cfg)
-  - [Metricbeat Configuration File](ansible/files/metricbeat-config.yml)
-  - [Filebeat Configuration File](ansible/files/filebeat-config.yml)
-  - [ELK Playbook](ansible/elkserversetup.yml)
-  - [Pen Test Playbook (DVWA Containers)](ansible/pentest.yml)
+  - [Ansible Hosts](Ansible/hosts.yml)
+  - [Metricbeat Playbook](Ansible/roles/metricbeat-playbook.yml)
+  - [Filebeat Playbook](Ansible/roles/filebeat-playbook.yml)
+  - [Ansible Configuration](Ansible/ansible.cfg)
+  - [Metricbeat Configuration File](Ansible/files/metricbeat-config.yml)
+  - [Filebeat Configuration File](Ansible/files/filebeat-config.yml)
+  - [ELK Playbook](Ansible/elkserversetup.yml)
+  - [Pen Test Playbook (DVWA Containers)](Ansible/pentest.yml)
 
 This document contains the following details:
 - Description of the Topology
@@ -25,6 +25,8 @@ This document contains the following details:
   - Beats in Use
   - Machines Being Monitored
 - How to Use the Ansible Build
+
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Description of the Topology
 
@@ -48,7 +50,7 @@ The configuration details of each machine may be found below.
 | Jump Box    | Gateway & Ansible  | 10.0.0.7   | Linux            |
 | Web-1       | Ubuntu Web Server  | 10.0.0.11  | Linux            |
 | Web-2       | Ubuntu Web Server  | 10.0.0.10  | Linux            |
-| ELK-Server  | Base for ELK Stack | 10.0.0.5   | Linux            |
+| ELK-Server  | Base for ELK Stack | 10.1.0.5   | Linux            |
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,50 +67,97 @@ Machines within the network can only be accessed by the Jump Box Provisioner.
   - The Jump Box Provisioner (IP: 10.0.0.7) vis ssh (Port 22).
 - _What was its IP address?_
   - The Public IP of the host machine can access the ELK VM.
-
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name      | Publicly Accessible | Allowed IP Addresses |
+|-----------|---------------------|----------------------|
+| Jump Box  | Yes                 | 20.213.72.162        |
+| Web-1	    | No                  | 10.0.0.11            |
+| Web-2	    | No                  | 10.0.0.10            |
+| ELKserver | No	          | 20.213.72.162        |
+
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+  - Ansible allows you to repidly institute multi-level applications via the use of a pre-configured YAML playbook.
+  - It has no dependency or requirement for use of any form of agents installed on remote systems. Therefore, overall maintenance and decreases in performance are heavily reduced.
+  - Customised code does not need to be written in order to automate the systems you are setting up.  
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+  - Specifies the group of machines and to become root user
+  - Install docker.io
+  - Install python3-pip and its associated docker module
+  - Increase and Use More Virtual Memory
+  - Download and launch the docker container for the elk server, to run on published ports:
+    - 5601:5601 
+    - 9200:9200 
+    - 5044:5044
+  - Enable the docker service to run upon system start
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![](https://github.com/BurntLog/UOS---Cyber-Bootcamp---Project-1/tree/main/Images/docker_ps_output.png)
+
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- _10.0.0.7_ (DVWA-VM1)
+- _10.0.0.10_ (Web-1)
+- _10.0.0.11_ (Web-1)
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- _FileBeat_
+- _MetricBeat_
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects and transmits log files to the ELK Server. Filebeat monitors specified files, for example, the MySQL database of which supports this application, and forwards log files to Elasticsearch or Logstash for indexing and if needed, further review.
+- Metricbeat, as per its namesake, collect metrics and statistics of the specified system. It monitors stats such as the CPU, Physical Memory, Disk Usage and Network usage among others.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the YML file to the ansible folder.
+- Update the ansible.cfg file to include the remote user.
+- Run the playbook, and navigate to http://(Private IP Address of the ELk VM):5601/app/kibana to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
+- _Which file is the playbook? Where do you copy it?
+  - The files in the ansible/roles folder are the the playbooks, which are moved to the ansible folder on the ansible machine for setup
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
+  - The file requiring an update is update filebeat-config.yml. The hosts.yml file is then also update to reflect the ip addresses of the specify the machines in the group and also specifying the group that will be run on in ansible
 - _Which URL do you navigate to in order to check that the ELK server is running?
+  - http://(External IP Address of the ELK VM):5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
+| COMMAND                                             | RESULT                                                        |
+|-----------------------------------------------------|---------------------------------------------------------------|                         
+| `ssh-keygen`                                        |  Creates an ssh-key for us with the Virtual Machines          |
+| `sudo cat .ssh/id_rsa.pub`                          |  Provides a copy of the ssh public key for use                |
+| `ssh azadmin@(Jump box IP address)`                 |  Connect to the Jump-Box to access ansible containers         |
+| `sudo docker container list -a`                     |  Provides a list of all docker containers with names          |
+| `sudo docker start (for example: wonderful_ellis)`  |  Starts the named docker container                            |
+| `sudo docker ps -a`                                 |  Provides a list of all active/inactive containers            |
+| `sudo docker attach (for example: wonderful_ellis)` |  Connects into named docker container                         |
+| `cd /etc/ansible`                                   |  Enter the ansible directory                                  |
+| `nano /etc/ansible/hosts`                           |  Opens the hosts file in an editable window                   |
+| `nano /etc/ansible/ansible.cfg`                     |  Opens the ansible.cfg file in an editable window             |
+| `nano /etc/ansible/pentest.yml`                     |  Opens the pentest.yml file in an editable window             |
+| `ansible-playbook [location][filename]`             |  Runs the specified playbook                                  |
+| `ssh ansible@(Web-1 IP address)`                    |  Connects and logs into the Web-1 Virtual Machine             |
+| `ssh ansible@(Web-2 IP address)`                    |  Connects and logs into the Web-2 Virtual Machine             |
+| `ssh ansible@(DVWA-VM1 IP address)`                 |  Connects and logs into the DVWA-VM1 Virtual Machine          |
+| `ssh ansible@(ELK Server IP address)`               |  Connects and logs into the ELK Server Virtual Machine        |
+| `exit`                                              |  Exits out of any instance back into the previous one         |
+| `nano filebeat-config.yml`                          |  Opens the filebeat-config.yml file in an editable window     |
+| `nano filebeat-playbook.yml`                        |  Opens the filebeat-playbook.yml file in an editable window   |
+| `nano metricbeat-config.yml`                        |  Opens the metricbeat-config.yml file in an editable window   |
+| `nano metricbeat-playbook.yml`                      |  Opens the metricbeat-playbook.yml file in an editable window |   
+
+-------------------------------------------------------------------------------------------------------------------------------------------
