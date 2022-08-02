@@ -39,7 +39,7 @@ Load balancing ensures that the application will be highly available, in additio
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the network and system logs.
 - _What does Filebeat watch for?_
-  - Filebeat monitors the log files or any any other items/locations that you specify, collects log events, and forwards these logs to the ELK Server.
+  - Filebeat monitors the log files or any other items/locations that you specify, collects log events, and forwards these logs to the ELK Server.
 - _What does Metricbeat record?_
   - Metricbeat takes the metrics and statistics that it collects (for example, system metrics including CPU and disk usage, overall memory usage etc) and forwards this information to the Elk Server for review and further analysis.
 
@@ -81,7 +81,7 @@ A summary of the access policies in place can be found in the table below.
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-  - Ansible allows you to repidly institute multi-level applications via the use of a pre-configured YAML playbook.
+  - Ansible allows you to rapidly institute multi-level applications via the use of a pre-configured YAML playbook.
   - It has no dependency or requirement for use of any form of agents installed on remote systems. Therefore, overall maintenance and decreases in performance are heavily reduced.
   - Customised code does not need to be written in order to automate the systems you are setting up.  
 
@@ -124,11 +124,10 @@ In order to use the playbook, you will need to have an Ansible control node alre
 SSH into the control node and follow the steps below:
 - Copy the YML file to the ansible folder.
 - Update the ansible.cfg file to include the remote user.
-- Run the playbook, and navigate to http://(Private IP Address of the ELk VM):5601/app/kibana to check that the installation worked as expected.
+- Run the playbook, and navigate to http://(Private IP Address of the ELK VM):5601/app/kibana to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?
-  - The files in the ansible/roles folder are the the playbooks, which are moved to the ansible folder on the ansible machine for setup
+  - The files in the ansible/roles folder are the playbooks, which are moved to the ansible folder on the ansible machine for setup
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
   - The file requiring an update is update filebeat-config.yml. The hosts.yml file is then also update to reflect the ip addresses of the specify the machines in the group and also specifying the group that will be run on in ansible
 - _Which URL do you navigate to in order to check that the ELK server is running?
