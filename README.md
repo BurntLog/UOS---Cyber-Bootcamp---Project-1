@@ -30,7 +30,7 @@ This document contains the following details:
 
 ### Description of the Topology
 
-The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
+The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
 Load balancing ensures that the application will be highly available, in addition to restricting traffic to the network.
 - _What aspect of security do load balancers protect? What is the advantage of a jump box?_
@@ -126,11 +126,11 @@ SSH into the control node and follow the steps below:
 - Update the ansible.cfg file to include the remote user.
 - Run the playbook, and navigate to http://(Private IP Address of the ELK VM):5601/app/kibana to check that the installation worked as expected.
 
-- _Which file is the playbook? Where do you copy it?
+- _Which file is the playbook? Where do you copy it?_
   - The files in the ansible/roles folder are the playbooks, which are moved to the ansible folder on the ansible machine for setup
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
   - The file requiring an update is update filebeat-config.yml. The hosts.yml file is then also update to reflect the ip addresses of the specify the machines in the group and also specifying the group that will be run on in ansible
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- _Which URL do you navigate to in order to check that the ELK server is running?_
   - http://(External IP Address of the ELK VM):5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
